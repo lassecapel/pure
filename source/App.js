@@ -1,32 +1,43 @@
 import createTitle from 'components/title';
 import createHello from 'components/hello';
-import { createStore } from 'redux';
+import createControls from 'components/controls';
+import Presenter from 'components/presenter';
+import createSlide from 'components/slide';
+import { Provider } from 'react-redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Router, Route, browserHistory } from 'react-router';
+import { syncHistory, routeReducer } from 'react-router-redux';
 
 import hello from 'store/reducers/hello';
 
-const store = createStore(hello);
+const reducer = combineReducers(Object.assign({}, hello, {
+  routing: routeReducer,
+}));
 
-const setMode = (mode) => store.dispatch({ type: 'SET_MODE', mode });
+// Sync dispatched route actions to the history
+const reduxRouterMiddleware = syncHistory(browserHistory);
+const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware)(createStore);
+
+const store = createStoreWithMiddleware(reducer);
+
+// Required for replaying actions from devtools to work
+reduxRouterMiddleware.listenForReplays(store);
+
+// const store = createStore(hello);
 
 store.subscribe(() => {
   console.log(store.getState());
 });
 
-export default React => ({ foo, ...props }) => {
-  const Title = createTitle(React);
-  const Hello = createHello(React);
-  const helloProps = {
-    ...props,
-    actions: {
-      setMode
-    }
-  };
-
+export default React => ({ ...props }) => {
+  const Slide = createSlide(React);
   return (
-    <div className="content">
-      <Title { ...props } />
-      <Hello { ...helloProps } />
-      <p>Content goes here: { foo }</p>
-    </div>
+    <Provider store={store} >
+      <Router history={browserHistory}>
+        <Route path="/" component={Presenter}>
+          <Route path="slides/:slideId" component={Slide}></Route>
+        </Route>
+      </Router>
+    </Provider>
   );
 };
