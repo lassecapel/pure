@@ -20,7 +20,7 @@ test('Hello', assert => {
     actions: createActions()
   };
 
-  const el = <App{ ...props } />;
+  const el = <App { ...props } />;
   const $ = dom.load(render(el));
 
   const actual = {
