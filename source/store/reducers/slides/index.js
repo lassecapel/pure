@@ -1,4 +1,4 @@
-import { ADD_SLIDE, DELETE_SLIDE, EDIT_SLIDE, SET_INDEX } from '../../constants/action_types';
+import { ADD_SLIDE, DELETE_SLIDE, EDIT_SLIDE, INCREMENT, DECREMENT } from '../../constants/action_types';
 import { combineReducers } from 'redux';
 
 const assign = Object.assign;
@@ -40,15 +40,12 @@ const slides = (state = initialSlides, {type, id, title, text} = {}) => {
   }
 };
 
-function activeId (state = {activeIndex: 0}, {type, index } = {}) {
+function activeId (state = 0, {type} = {}) {
   switch (type) {
-    case SET_INDEX:
-      return assign({},
-        ...state,
-        {
-          activeIndex: index
-        }
-      );
+    case INCREMENT:
+      return state + 1;
+    case DECREMENT:
+      return state - 1;
     default:
       return state;
   }

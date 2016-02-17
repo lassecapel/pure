@@ -1,20 +1,20 @@
 import createControls from '../controls';
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state) => {
+const selectProps = (state) => {
   return {
     slides: state.slides,
   };
 };
 
-export default (React) => connect(mapStateToProps)((props) => {
+export default (React) => connect(selectProps)((props) => {
   const Controls = createControls(React);
   const controlProps = {
     ...props,
     controlsClass: 'control',
     isVisible: props.controlsVisible,
-    nextId: Number(props.slides.currentIndex) + 1,
-    prevId: Number(props.slides.currentIndex) - 1,
+    nextId: Number(props.slides.activeId) + 1,
+    prevId: Number(props.slides.activeId) - 1,
   };
   console.log('props in Presenter', props);
   return (
