@@ -17,7 +17,9 @@ const slides = (state = initialSlides, {type, id, title, text} = {}) => {
         {
           id: state.reduce((maxId, slide) => Math.max(slide.id, maxId), -1) + 1,
           title: title,
-          text: text
+          text: text,
+          isVisible: true,
+          isEditing: false,
         },
         ...state
       ];
@@ -48,6 +50,14 @@ function activeId (state = 0, {type} = {}) {
       return state - 1;
     default:
       return state;
+  }
+}
+function getVisbleSlide (state, {type} = {}) {
+  switch(visible) {
+    case 'SHOW_VISIBLE':
+      return slides.filter(s => s.isViisible)
+
+
   }
 }
 

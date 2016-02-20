@@ -13,7 +13,7 @@ export default React => {
       <div className="slide">
         <Title {...titleProps} />
         <p>{props.text}</p>
-        <small>Slide: {props.params.slideId}</small>
+        <small>Slide: {props.id}</small>
       </div>
     );
   };
