@@ -12,6 +12,8 @@ app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath
 }));
 
+app.use('/public', express.static(__dirname + '/public'));
+
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('*', function (req, res) {

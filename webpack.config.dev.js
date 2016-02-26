@@ -1,5 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   devtool: 'eval',
@@ -16,6 +18,7 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
+    new ExtractTextPlugin('style.css', { allChunks: true }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
@@ -26,7 +29,15 @@ module.exports = {
       include: path.join(__dirname, 'source'),
       query: {
         presets: ['es2015', 'stage-0', 'react']
-      }
+      },
+    }, {
+      test: /\.css$/i,
+      include: path.join(__dirname, 'source'),
+      loader: ExtractTextPlugin.extract('style',
+        `css?modules&localIdentName=[name]_[local]__[hash:base64:5]!postcss`),
     }]
-  }
+  },
+  postcss: [
+    autoprefixer({ browsers: ['last 2 versions'] })
+  ],
 };

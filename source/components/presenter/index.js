@@ -1,34 +1,71 @@
 import createControls from '../controls';
 import createSlide from '../slide';
+import createHeader from '../header';
 import { connect } from 'react-redux';
-import { map, filter } from 'lodash';
+import { find } from 'lodash';
+import keycode from 'keycode';
+import { ADD_SLIDE } from '../../store/constants/action_types';
 
 const selectProps = (state, ownProps) => {
+  console.log(state);
   return {
-    slides: filter(state.slides.slides, (slide) => {
-      console.log(slide.id === ownProps.params.slideId, slide.id, ownProps.params.slideId);
-      return slide.id === Number(ownProps.params.slideId);
-    }),
+    visibleSlide: find(state.slides, (slide) => slide.id === Number(ownProps.params.slideId)),
+    totalSlides: state.slides.length,
   };
+};
+
+const handleKeyup = (ev) => {
+  const nextKeys = ['up', 'right', 'w', 'd', 'l', 'k'];
+  const prevKeys = ['down', 'left', 's', 'a', 'h', 'j'];
+  const navigateNext = () => { console.log('next'); };
+  const navigatePrev = () => { console.log('prev'); };
+
+  if (nextKeys.indexOf(keycode(ev)) > -1) {
+    navigateNext();
+    return;
+  }
+  if (prevKeys.indexOf(keycode(ev)) > -1) {
+    navigatePrev();
+    return;
+  }
+};
+
+const componentDidMount = () => {
+  window.addEventListener('keyup', handleKeyup);
 };
 
 export default (React) => connect(selectProps)((props) => {
   const Controls = createControls(React);
   const Slide = createSlide(React);
+  const Header = createHeader(React);
+  console.log('props in presenter', props);
+
+  const addSlide = () => {
+    props.dispatch({ type: ADD_SLIDE, title: 'Change me', text: 'your awesome content'});
+  };
+
   const controlProps = {
     ...props,
     controlsClass: 'control',
     isVisible: props.controlsVisible,
-    nextId: Number(props.params.slideId) + 1,
-    prevId: Number(props.params.slideId) - 1,
+    currentIdx: Number(props.params.slideId),
+    actions: {
+      addSlide
+    },
   };
 
-  console.log('props in Presenter', props);
+  const slideProps = {
+    ...props.visibleSlide,
+    key: props.visibleSlide.id,
+  };
 
+  componentDidMount();
   return (
-    <div className="presenter">
-      <h1 className="presenter__title">Presenter</h1>
-      {map(props.slides, slide => <Slide {...slide}/>)}
+    <div>
+      <Header />
+      <main>
+        <Slide {...slideProps} />
+      </main>
       <Controls { ...controlProps } />
     </div>
   );
