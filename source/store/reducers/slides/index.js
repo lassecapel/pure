@@ -17,8 +17,6 @@ const todo = (state, { type, id, title, text}) => {
         id,
         title,
         text,
-        isVisible: true,
-        isEditing: false,
       };
     default:
       return state;
@@ -29,13 +27,13 @@ const slides = (state = initialSlides, {type, id, title, text} = {}) => {
   switch (type) {
     case ADD_SLIDE:
       return [
+        ...state,
         todo(undefined, {
           id: state.reduce((maxId, slide) => Math.max(slide.id, maxId), -1) + 1,
           title,
           text,
           type,
-        }),
-        ...state
+        })
       ];
 
     case DELETE_SLIDE:
@@ -45,8 +43,8 @@ const slides = (state = initialSlides, {type, id, title, text} = {}) => {
       return state.map(slide =>
         slide.id === id ?
           assign({}, slide, {
-            title: title,
-            text: text }) :
+            title,
+            text}) :
           slide
       );
     default:

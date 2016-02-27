@@ -1,18 +1,22 @@
 import styles from './Header.css';
 import { Link } from 'react-router';
+import { MdChat } from 'react-icons/md';
 
-export default React => () => {
+export default React => ({onClick}) => {
+  const startPresentation = (ev) => {
+    ev.preventDefault();
+    onClick();
+  };
+
   return (
-    <header>
-      <Link to="/" />
-      <div className={styles.header}>
-        <div className={styles.wrapper}>
-            <div className={styles.react}>
-              <div className={styles.inner}></div>
-              <div className={styles.innerdot}></div>
-            </div>
-        </div>
-      </div>
+    <header className={styles.header}>
+      <a className={styles.start} href="#" onClick={startPresentation}>
+        <MdChat /> start
+      </a>
+      <h1>
+      <Link to="/" >Pure</Link>
+      </h1>
+
     </header>
   );
 };

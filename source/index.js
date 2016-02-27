@@ -1,15 +1,20 @@
 import React from 'react';
 import { render } from 'react-dom';
-import createApp from './App';
+import { Provider } from 'react-redux';
+import { Router, browserHistory } from 'react-router';
 
-/* generic styles */
-import styles from './styles/base.css';
-import normalize from './styles/normalize.css';
-Object.assign(styles, normalize);
+import { configureStore } from './store';
+import routes from './routes';
 
-const App = createApp(React);
+let state = window.__initialState__ || undefined; /// hook for localstorage
+const store = configureStore(browserHistory, state);
+const mount = document.getElementById('root');
+
+console.log('store: ', store.getState());
 
 render(
-  <App></App>,
-  document.getElementById('root')
+  <Provider store={store}>
+    <Router history={browserHistory} routes={routes} />
+  </Provider>,
+  mount
 );

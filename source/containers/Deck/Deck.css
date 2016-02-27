@@ -1,0 +1,14 @@
+.deck {
+  display: flex;
+  flex-direction: wrap;
+}
+.slide {
+  composes: slide from 'styles/slide.css';
+  text-align: center;
+  width: 250px;
+}
+.addSlide {
+  composes: slide;
+  background-color: #eee;
+  border: 10px dashed #c0c0c0
+}
