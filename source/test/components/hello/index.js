@@ -21,9 +21,8 @@ test('Hello', nest => {
     const output = $.html();
 
     const actual = re.test(output);
-    const expected = true;
 
-    assert.equal(actual, expected, msg);
+    assert.true(actual, msg);
 
     assert.end();
   });
@@ -42,9 +41,8 @@ test('Hello', nest => {
     const output = $.html();
 
     const actual = re.test(output);
-    const expected = true;
 
-    assert.equal(actual, expected, msg);
+    assert.true(actual, msg);
 
     assert.end();
   });

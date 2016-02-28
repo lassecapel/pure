@@ -1,15 +1,20 @@
 import React from 'react';
 import { render } from 'react-dom';
-import createApp from './App';
+import { Provider } from 'react-redux';
+import { Router, browserHistory } from 'react-router';
 
-const App = createApp(React);
+import { configureStore } from './store';
+import routes from './routes';
 
-const props = {
-  title: 'Pure Components Rock',
-  helloClass: 'hello'
-};
+let state = window.__initialState__ || undefined; /// hook for localstorage
+const store = configureStore(browserHistory, state);
+const mount = document.getElementById('root');
+
+console.log('store: ', store.getState());
 
 render(
-  <App { ...props }></App>,
-  document.getElementById('root')
+  <Provider store={store}>
+    <Router history={browserHistory} routes={routes} />
+  </Provider>,
+  mount
 );

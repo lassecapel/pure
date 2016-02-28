@@ -1,5 +1,4 @@
-const assign = Object.assign;
-const initialState = { mode: 'display', subject: 'World' }
+const initialState = { mode: 'display', subject: 'World' };
 export default (
     state = initialState, { mode, subject, type } = {}
   ) => {

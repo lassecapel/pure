@@ -1,0 +1,18 @@
+.deck {
+  display: flex;
+  flex-direction: wrap;
+  overflow-x:auto;
+}
+
+.slide {
+  composes: slide from 'styles/slide.css';
+  text-align: center;
+  width: 300px;
+  height: 150px;
+  overflow: hidden;
+}
+.addSlide {
+  composes: slide;
+  background-color: #eee;
+  border: 10px dashed #c0c0c0
+}

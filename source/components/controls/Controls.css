@@ -1,0 +1,17 @@
+.controls {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 25%;
+  z-index: 10;
+}
+.controls ul {
+  background: #F0F8FF;
+  margin: 0;
+  padding: 0;
+  border-radius: 0.2, 0, 0, 0.2;
+}
+.controls li {
+  padding: 0 0.5em;
+
+}
