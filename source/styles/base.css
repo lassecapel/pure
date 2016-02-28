@@ -9,13 +9,10 @@ html, body {
   width: 100%;
 }
 
-:global(
-  #root {
-    height: 100%;
-    width: 100%;
-  }
-)
-
+#root:global {
+  height: 100%;
+  width: 100%;
+}
 
 p, h1, h2, h3, h4, h5, span, li {
   color: #444;
