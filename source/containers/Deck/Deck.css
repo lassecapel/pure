@@ -1,11 +1,12 @@
 .deck {
   display: flex;
   flex-direction: wrap;
-  overflow-x:auto;
+  overflow-x: auto;
 }
 
 .slide {
   composes: slide from 'styles/slide.css';
+  display: block;
   text-align: center;
   width: 300px;
   height: 150px;

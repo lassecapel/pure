@@ -13,9 +13,8 @@ export default React => ({onClick}) => {
         start
       </a>
       <h1>
-      <Link to="/" >Pure</Link>
+      <Link to="/" >Yarpa</Link>
       </h1>
-
     </header>
   );
 };
