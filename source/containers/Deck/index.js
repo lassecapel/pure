@@ -10,11 +10,13 @@ export default React => {
 
     const renderSlides = slides.map( (slide) => {
       return (
-        <Link to={`/slides/${slide.id}`} key={slide.id}>
-          <div className={styles.slide}>
-            <h2>{slide.title}</h2>
-          </div>
-        </Link>
+        <div key={`slide_${slide.sid}`}>
+          <Link to={`/slides/${slide.sid}`}>
+            <div className={styles.slide}>
+              <h2>{slide.title}</h2>
+            </div>
+          </Link>
+      </div>
       );
     });
 

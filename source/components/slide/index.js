@@ -4,7 +4,7 @@ import { PropTypes } from 'react';
 import style from './Slide.css';
 
 export default React => {
-  const Slide = ({title, text, id, mode, actions: { editSlide }}) => {
+  const Slide = ({title, text, sid, mode, actions: { editSlide }}) => {
     const Title = createTitle(React);
     const Content = createContent(React);
     const titleProps = { title };
@@ -18,7 +18,7 @@ export default React => {
         return;
       }
       editSlide({
-        id,
+        sid,
         title: titleEl.value,
         text: textEl.value
       });
@@ -47,7 +47,7 @@ export default React => {
       <div className={ style.slide }>
         <Title {...titleProps} />
         <Content {...contentProps} />
-        <p className={style.slideCount}>{id}</p>
+        <p className={style.slideCount}>{sid}</p>
       </div>
     );
   };

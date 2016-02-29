@@ -1,54 +1,34 @@
 import { connect } from 'react-redux';
 import { find } from 'lodash';
-import keycode from 'keycode';
 import { push } from 'react-router-redux';
 import { ADD_SLIDE, EDIT_SLIDE, DELETE_SLIDE} from '../../store/constants/action_types';
 import { SET_FULLSCEEN, SET_MODE } from '../../store/constants/modes';
 
 
 import createControls from '../../components/controls';
+import createKeypress from '../../components/fullscreen';
 import createSlide from '../../components/slide';
 import createFullscreen from '../../components/fullscreen';
 import createDeck from '../../containers/Deck';
 
+
 const selectProps = (state, ownProps) => {
   return {
     slides: state.slides,
-    slide: find(state.slides, (slide) => slide.id === Number(ownProps.params.slideId)),
+    slide: find(state.slides, (slide) => slide.sid === Number(ownProps.params.slideId)),
     totalSlides: state.slides.length,
     fullscreen: state.modes.fullscreen,
     currentMode: state.modes.mode
   };
 };
 
-const handleKeyup = (ev) => {
-  const nextKeys = ['up', 'right', 'w', 'd', 'l', 'k'];
-  const prevKeys = ['down', 'left', 's', 'a', 'h', 'j'];
-  const navigateNext = () => { console.log('next'); };
-  const navigatePrev = () => { console.log('prev'); };
-
-  if (nextKeys.indexOf(keycode(ev)) > -1) {
-    navigateNext();
-    return;
-  }
-  if (prevKeys.indexOf(keycode(ev)) > -1) {
-    navigatePrev();
-    return;
-  }
-};
-
-const componentDidMount = () => {
-  window.addEventListener('keyup', handleKeyup);
-};
-
-
 export default (React) => connect(selectProps)((props) => {
   const Controls = createControls(React);
   const Slide = createSlide(React);
   const Deck = createDeck(React);
   const Fullscreen = createFullscreen(React);
+  const Keypress = createKeypress(React);
   const {
-    slides,
     slide,
     dispatch,
     fullscreen,
@@ -60,7 +40,7 @@ export default (React) => connect(selectProps)((props) => {
   const toggleMode = () => dispatch({type: SET_MODE, mode: currentMode === 'show' ? 'edit' : 'show' });
   const addSlide = (payload) => dispatch({type: ADD_SLIDE, title: 'Change me', text: 'Your awesome __markdown__ content'});
   const deleteSlide = () => {
-    dispatch({type: DELETE_SLIDE, id: slide.id});
+    dispatch({type: DELETE_SLIDE, sid: slide.sid});
     dispatch(push('/'));
   };
   // Slide actions
@@ -83,7 +63,7 @@ export default (React) => connect(selectProps)((props) => {
   const slideProps = {
     ...slide,
     mode: currentMode,
-    key: slide.id,
+    key: slide.sid,
     isEditing: props.currentMode,
     actions: {
       editSlide,
@@ -93,13 +73,16 @@ export default (React) => connect(selectProps)((props) => {
   const fullscreenProps = {
     isFullscreen: fullscreen,
     onExitFullscreen: toggleFullscreen,
+  };
+
+  const keypressProps = {
     next: navigateNext,
     prev: navigatePrev,
   };
 
-  componentDidMount();
   return (
     <article>
+      {fullscreen && <Keypress {...keypressProps}/>}
       <Fullscreen {...fullscreenProps} >
         <Slide {...slideProps} />
       </Fullscreen>

@@ -8,7 +8,7 @@ const slide = (state, { type, id, title, text}) => {
   switch (type) {
     case ADD_SLIDE:
       return {
-        id,
+        sid: id,
         title,
         text,
       };
@@ -17,13 +17,13 @@ const slide = (state, { type, id, title, text}) => {
   }
 };
 
-const slides = (state = [], {type, id, title, text} = {}) => {
+const slides = (state = [], {type, sid, title, text} = {}) => {
   switch (type) {
     case ADD_SLIDE:
       return [
         ...state,
         slide(undefined, {
-          id: state.reduce((maxId, s) => Math.max(s.id, maxId), -1) + 1,
+          id: state.reduce((maxId, s) => Math.max(s.sid, maxId), -1) + 1,
           title,
           text,
           type,
@@ -31,11 +31,11 @@ const slides = (state = [], {type, id, title, text} = {}) => {
       ];
 
     case DELETE_SLIDE:
-      return state.filter(s => s.id !== id);
+      return state.filter(s => s.sid !== sid);
 
     case EDIT_SLIDE:
       return state.map(s =>
-        s.id === id ?
+        s.sid === sid ?
           assign({}, s, {
             title,
             text}) :

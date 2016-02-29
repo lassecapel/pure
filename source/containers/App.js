@@ -14,7 +14,7 @@ export default React => {
   function App ({ children, dispatch, showHeader, firstSlide}) {
     const Header = createHeader(React);
     const startPresentation = () => {
-      dispatch(push(`/slides/${firstSlide.id}`));
+      dispatch(push(`/slides/${firstSlide.sid}`));
       dispatch({type: SET_FULLSCEEN, fullscreen: true});
     };
 

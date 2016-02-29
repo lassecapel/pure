@@ -5,7 +5,7 @@ import * as reducers from './reducers';
 import { db } from '../database';
 
 export function configureStore (history, initialState) {
-  window.x = db;
+  window.db = db; // for debugging;
 
   const reducer = combineReducers({
     ...reducers,
@@ -17,6 +17,10 @@ export function configureStore (history, initialState) {
 
   const createStoreWithMiddleware = compose(
     applyMiddleware(reduxRouterMiddleware),
+    /*
+    * https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd/related
+    */
+    window.devToolsExtension ? window.devToolsExtension() : f => f,
     persistentStore(db),
   )(createStore);
 

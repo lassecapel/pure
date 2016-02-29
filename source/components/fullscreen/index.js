@@ -2,7 +2,6 @@ import screenfull from 'screenfull';
 import style from './Fullscreen.css';
 
 export default React => (props) => {
-
   const closeFullscreen = () => {
     if (!screenfull.isFullscreen) {
       console.log('dispatch not fullscreen annymore');
@@ -23,6 +22,7 @@ export default React => (props) => {
 
   return (
     <div className={ props.isFullscreen && style.fullscreen } ref={ node => {node && toggleFullscreen(node);}}>
+
       {props.children}
     </div>
   );
