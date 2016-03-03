@@ -36,13 +36,16 @@ export default (React) => connect(selectProps)((props) => {
   } = props;
 
   const toggleFullscreen = () => dispatch({ type: SET_FULLSCEEN, fullscreen: !fullscreen});
+
+  // @TODO move to action creators
   //Control actions
   const toggleMode = () => dispatch({type: SET_MODE, mode: currentMode === 'show' ? 'edit' : 'show' });
-  const addSlide = (payload) => dispatch({type: ADD_SLIDE, title: 'Change me', text: 'Your awesome __markdown__ content'});
+  const addSlide = () => dispatch({type: ADD_SLIDE, title: 'Change me', text: 'Your awesome __markdown__ content'});
   const deleteSlide = () => {
     dispatch({type: DELETE_SLIDE, sid: slide.sid});
-    dispatch(push('/'));
+    dispatch(push('/')); // @TODO listen to store
   };
+
   // Slide actions
   const editSlide = (payload) => dispatch({type: EDIT_SLIDE, ...payload});
   const navigateNext = () => dispatch(push(`slides/${Number(props.params.slideId) + 1}`));

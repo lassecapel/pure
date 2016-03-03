@@ -21,7 +21,7 @@ export default React => {
 
     return (
       <div className={style.app}>
-        {showHeader && <Header onClick={startPresentation} />}
+        {showHeader && <Header startPresentationFn={startPresentation} showStart={Boolean(firstSlide)}/>}
         <main className={style.main}>
           {children}
         </main>

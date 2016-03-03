@@ -1,17 +1,18 @@
 import styles from './Header.css';
 import { Link } from 'react-router';
+import createStartButton from '../startButton';
 
-export default React => ({onClick}) => {
+export default React => ({startPresentationFn, showStart}) => {
   const startPresentation = (ev) => {
     ev.preventDefault();
-    onClick();
+    startPresentationFn();
   };
+
+  const StartButton = createStartButton(React);
 
   return (
     <header className={styles.header}>
-      <a className={styles.start} href="#" onClick={startPresentation}>
-        start
-      </a>
+      {showStart && <StartButton onClick={startPresentation}/>}
       <h1>
       <Link to="/" >Yarpa</Link>
       </h1>

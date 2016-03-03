@@ -18,11 +18,9 @@ export default React => (props) => {
       }
     }
   };
-  console.log('hier');
 
   return (
-    <div className={ props.isFullscreen && style.fullscreen } ref={ node => {node && toggleFullscreen(node);}}>
-
+    <div className={ props.isFullscreen && style.fullscreen } ref={ node => node && toggleFullscreen(node) }>
       {props.children}
     </div>
   );

@@ -2,45 +2,39 @@ import { ADD_SLIDE, DELETE_SLIDE, EDIT_SLIDE } from '../../constants/action_type
 import { persistentReducer } from 'redux-pouchdb';
 
 const assign = Object.assign;
+const slideId = (state) =>
+  state.reduce((maxId, s) => Math.max(s.sid, maxId), -1) + 1;
 
-
-const slide = (state, { type, id, title, text}) => {
+const slide = (state, action) => {
+  const { type, sid, title, text } = action;
   switch (type) {
     case ADD_SLIDE:
       return {
-        sid: id,
+        sid,
         title,
         text,
       };
+    case EDIT_SLIDE:
+      return assign({}, state, { title, text });
     default:
       return state;
   }
 };
 
-const slides = (state = [], {type, sid, title, text} = {}) => {
-  switch (type) {
+const slides = (state = [], action) => {
+  switch (action.type) {
     case ADD_SLIDE:
       return [
         ...state,
         slide(undefined, {
-          id: state.reduce((maxId, s) => Math.max(s.sid, maxId), -1) + 1,
-          title,
-          text,
-          type,
+          ...action,
+          sid: slideId(state),
         })
       ];
-
-    case DELETE_SLIDE:
-      return state.filter(s => s.sid !== sid);
-
     case EDIT_SLIDE:
-      return state.map(s =>
-        s.sid === sid ?
-          assign({}, s, {
-            title,
-            text}) :
-          s
-      );
+      return state.map(s => s.sid === action.sid ? slide(s, action) : s);
+    case DELETE_SLIDE:
+      return state.filter(s => s.sid !== action.sid);
     default:
       return state;
   }

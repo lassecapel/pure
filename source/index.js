@@ -6,7 +6,7 @@ import { Router, browserHistory } from 'react-router';
 import { configureStore } from './store';
 import routes from './routes';
 
-let state = window.__initialState__ || undefined; /// hook for localstorage
+let state = window.__initialState__ || undefined; // eslint-disable-line no-underscore-dangle
 const store = configureStore(browserHistory, state);
 const mount = document.getElementById('root');
 

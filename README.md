@@ -17,6 +17,7 @@ This application is based on
 **install & run:**
 
 **Start the dev server and follow instructions:**
+Make sure you have no process listening to port `:3000`
 
 ```sh
 npm start

@@ -5,7 +5,7 @@ export default React => {
     number, shape, func,
   } = React.PropTypes;
 
-  const controls = ({pushPath, totalSlides, toggleText, currentIdx, actions: { addSlide, deleteSlide, toggleMode }}) => {
+  const controls = ({totalSlides, toggleText, currentIdx, actions: { addSlide, deleteSlide, toggleMode }}) => {
     const onToggleClick = (ev) => {
       ev.preventDefault();
       toggleMode();
@@ -13,7 +13,6 @@ export default React => {
     const onDeleteClick = (ev) => {
       ev.preventDefault();
       deleteSlide();
-      pushPath('/');
     };
     const onAddClick = (ev) => {
       ev.preventDefault();

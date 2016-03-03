@@ -18,7 +18,7 @@ export function configureStore (history, initialState) {
   const createStoreWithMiddleware = compose(
     applyMiddleware(reduxRouterMiddleware),
     /*
-    * https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd/related
+    * https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
     */
     window.devToolsExtension ? window.devToolsExtension() : f => f,
     persistentStore(db),
