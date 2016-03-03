@@ -15,13 +15,14 @@ const slide = (state, action) => {
         text,
       };
     case EDIT_SLIDE:
-      return assign({}, state, { title, text });
+      return assign({}, state, {title, text});
     default:
       return state;
   }
 };
 
 const slides = (state = [], action) => {
+  const {sid, title, text, type} = action;
   switch (action.type) {
     case ADD_SLIDE:
       return [
@@ -32,9 +33,9 @@ const slides = (state = [], action) => {
         })
       ];
     case EDIT_SLIDE:
-      return state.map(s => s.sid === action.sid ? slide(s, action) : s);
+      return state.map(s => s.sid === sid ? slide(s, {type, title, text }) : s);
     case DELETE_SLIDE:
-      return state.filter(s => s.sid !== action.sid);
+      return state.filter(s => s.sid !== sid);
     default:
       return state;
   }
