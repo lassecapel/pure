@@ -20,7 +20,8 @@ This application is based on
 Make sure you have no process listening to port `:3000`
 
 ```sh
-npm start
+npm i
+npm run start
 ```
 
 **In another terminal window, start the dev console for lint/test feedback when you save files:**
