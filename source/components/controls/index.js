@@ -26,7 +26,7 @@ export default React => {
           <li><a href="#" onClick={onAddClick}>add slide</a></li>
           <li><a href="#" onClick={onDeleteClick}>delete</a></li>
         </ul>
-        <small>slide {currentIdx} van {totalSlides}</small>
+        <small>slide {currentIdx + 1} van {totalSlides}</small>
       </div>
     );
   };

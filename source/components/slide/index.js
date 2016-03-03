@@ -47,7 +47,7 @@ export default React => {
       <div className={ style.slide }>
         <Title {...titleProps} />
         <Content {...contentProps} />
-        <p className={style.slideCount}>{sid}</p>
+        <p className={style.slideCount}>{sid + 1}</p>
       </div>
     );
   };
