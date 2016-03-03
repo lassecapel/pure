@@ -12,7 +12,7 @@ export default React => ({startPresentationFn, showStart}) => {
 
   return (
     <header className={styles.header}>
-      {showStart && <StartButton onClick={startPresentation}/>}
+      {showStart && <StartButton startFn={startPresentation}/>}
       <h1>
       <Link to="/" >Yarpa</Link>
       </h1>
