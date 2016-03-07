@@ -5,7 +5,7 @@ import { ADD_SLIDE, EDIT_SLIDE } from 'store/constants/action_types';
 
 const setup = () => [
   {
-    sid: 0,
+    id: 0,
     title: 'Change me..',
     text: 'Lorem ipsum __dolor__ sit amet'
   }
@@ -31,7 +31,7 @@ test('slides', nest => {
   });
 
   nest.test('ADD_SLIDE without parameters', assert => {
-    const expected = [{sid: 0, title: undefined, text: undefined }];
+    const expected = [{id: 0, title: undefined, text: undefined }];
     const actual = slides(undefined, {type: ADD_SLIDE});
     assert.deepEqual(actual, expected, 'should add slide without parameters');
     assert.end();
@@ -45,8 +45,8 @@ test('slides', nest => {
   });
 
   nest.test('EDIT_SLIDE with updated parameter', assert => {
-    const expected = [{sid: 0, title: 'new title', text: 'Lorem ipsum __dolor__ sit amet' }];
-    const actual = slides(setup(), {type: EDIT_SLIDE, sid: 0, title: 'new title', text: 'Lorem ipsum __dolor__ sit amet'});
+    const expected = [{id: 0, title: 'new title', text: 'Lorem ipsum __dolor__ sit amet' }];
+    const actual = slides(setup(), {type: EDIT_SLIDE, id: 0, title: 'new title', text: 'Lorem ipsum __dolor__ sit amet'});
     assert.deepEqual(actual, expected, 'should return state with updated slide');
     assert.end();
   });

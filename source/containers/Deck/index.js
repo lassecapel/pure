@@ -9,9 +9,10 @@ export default React => {
     const onClick = () => dispatch({type: ADD_SLIDE});
 
     const renderSlides = slides.map( (slide) => {
+      console.log('slide:id', slide.id);
       return (
-        <div key={`slide_${slide.sid}`}>
-          <Link to={`/slides/${slide.sid}`}>
+        <div key={`slide_${slide.id}`}>
+          <Link to={`/slides/${slide.id}`}>
             <div className={styles.slide}>
               <h2>{slide.title}</h2>
             </div>

@@ -15,7 +15,7 @@ import createDeck from '../../containers/Deck';
 const selectProps = (state, ownProps) => {
   return {
     slides: state.slides,
-    slide: find(state.slides, (slide) => slide.sid === Number(ownProps.params.slideId)),
+    slide: find(state.slides, (slide) => slide.id === Number(ownProps.params.slideId)),
     totalSlides: state.slides.length,
     fullscreen: state.modes.fullscreen,
     currentMode: state.modes.mode
@@ -42,7 +42,7 @@ export default (React) => connect(selectProps)((props) => {
   const toggleMode = () => dispatch({type: SET_MODE, mode: currentMode === 'show' ? 'edit' : 'show' });
   const addSlide = () => dispatch({type: ADD_SLIDE, title: 'Change me', text: 'Your awesome __markdown__ content'});
   const deleteSlide = () => {
-    dispatch({type: DELETE_SLIDE, sid: slide.sid});
+    dispatch({type: DELETE_SLIDE, id: slide.id});
     dispatch(push('/')); // @TODO listen to store
   };
 
@@ -66,7 +66,7 @@ export default (React) => connect(selectProps)((props) => {
   const slideProps = {
     ...slide,
     mode: currentMode,
-    key: slide.sid,
+    key: slide.id,
     isEditing: props.currentMode,
     actions: {
       editSlide,
